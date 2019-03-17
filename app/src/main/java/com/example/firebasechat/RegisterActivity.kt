@@ -66,8 +66,8 @@ class RegisterActivity : AppCompatActivity() {
         if(requestCode == 0 && resultCode == Activity.RESULT_OK && data != null){
             selectedPhotoUri = data.data
             val bitMap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
-            val bitMapDrawable = BitmapDrawable(bitMap)
-            selectPhoto_Button_Register.setBackgroundDrawable(bitMapDrawable)
+            select_photo_ImageView.setImageBitmap(bitMap)
+            selectPhoto_Button_Register.alpha = 0f
         }
     }
 
@@ -80,16 +80,18 @@ class RegisterActivity : AppCompatActivity() {
             ref.downloadUrl.addOnSuccessListener {
                saveUserToDataBase(it.toString())
             }
-        }
+        }.addOnFailureListener {  }
 
     }
 
     private fun saveUserToDataBase(profileImageUrl: String){
+        Log.d("RegigsterActivity", "I Ran.")
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
         val user = User(uid, userNameInput.text.toString(), profileImageUrl )
+        Log.d("user", "$user, $ref, $uid")
         ref.setValue(user).addOnSuccessListener {
-            Log.d("RegisterActivity", "Saved User")
+            Log.d("RegigsterActivity", "Saved User")
         }
     }
 

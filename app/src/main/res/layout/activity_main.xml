@@ -66,8 +66,15 @@
 
             android:id="@+id/selectPhoto_Button_Register"
             android:background="@drawable/photo_button" android:textColor="@android:color/white"
-            android:layout_marginTop="68dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="68dp"/>
+    <de.hdodenhof.circleimageview.CircleImageView android:layout_width="150dp" android:layout_height="150dp"
+                                                  app:layout_constraintEnd_toEndOf="parent"
+                                                  app:layout_constraintStart_toStartOf="parent"
+                                                  app:layout_constraintTop_toTopOf="@+id/selectPhoto_Button_Register"
+                                                  app:layout_constraintHorizontal_bias="0.502"
+                                                  app:layout_constraintBottom_toBottomOf="@+id/selectPhoto_Button_Register"
+                                                  android:id="@+id/select_photo_ImageView"/>
 </android.support.constraint.ConstraintLayout>
