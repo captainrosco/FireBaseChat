@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
 import java.net.URI
 import java.util.*
@@ -37,6 +38,7 @@ class RegisterActivity : AppCompatActivity() {
                     return@addOnCompleteListener
                 } else {
                     Log.d("Main", "Successful Created User with uid: ${it.result!!.user.uid}")
+                    uploadImageToFireBase()
                 }
             }.addOnFailureListener {
                 Toast.makeText(this, "Failed to create user: ${it.message}", Toast.LENGTH_SHORT).show()
@@ -69,7 +71,15 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun uploadImageToFireBase() {
+        if(selectedPhotoUri == null) return
         val filename = UUID.randomUUID().toString()
+        val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
+        ref.putFile(selectedPhotoUri!!).addOnSuccessListener {
+            Log.d("RegigsterActivity", "Successful Image Upload.")
+            ref.downloadUrl.addOnSuccessListener {
+                it.toString()
+            }
+        }
 
     }
 }
