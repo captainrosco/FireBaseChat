@@ -3,6 +3,10 @@ package com.example.firebasechat
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Item
+import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_new_message.*
 
 class NewMessageActivity : AppCompatActivity() {
@@ -13,6 +17,17 @@ class NewMessageActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Select User"
 
-        newMessage_recycle_view.adapter
+        val adapter = GroupAdapter<ViewHolder>()
+        adapter.add(UserItem())
+        newMessage_recycle_view.adapter = adapter
+    }
+}
+
+class UserItem: Item<ViewHolder>() {
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+
+    }
+    override fun getLayout(): Int {
+       return R.layout.user_row
     }
 }
