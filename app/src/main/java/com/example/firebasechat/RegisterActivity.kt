@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
 import java.net.URI
@@ -77,9 +78,21 @@ class RegisterActivity : AppCompatActivity() {
         ref.putFile(selectedPhotoUri!!).addOnSuccessListener {
             Log.d("RegigsterActivity", "Successful Image Upload.")
             ref.downloadUrl.addOnSuccessListener {
-                it.toString()
+               saveUserToDataBase(it.toString())
             }
         }
 
     }
+
+    private fun saveUserToDataBase(profileImageUrl: String){
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        val user = User(uid, userNameInput.text.toString(), profileImageUrl )
+        ref.setValue(user).addOnSuccessListener {
+            Log.d("RegisterActivity", "Saved User")
+        }
+    }
+
 }
+
+class User(val uid: String, val username: String, val profileImageUrl: String)
