@@ -1,5 +1,6 @@
 package com.example.firebasechat
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
@@ -17,8 +18,11 @@ class LoginActivity : AppCompatActivity() {
 
             val auth = FirebaseAuth.getInstance()
             auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener {
-
+                        val intent = Intent(this, LastestMessagesActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+                }
             }
         }
-    }
-}
+
