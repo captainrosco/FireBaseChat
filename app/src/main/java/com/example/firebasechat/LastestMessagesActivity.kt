@@ -32,7 +32,8 @@ class LastestMessagesActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_new_mesage -> {
-
+                val intent = Intent(this, NewMessageActivity::class.java)
+                startActivity(intent)
             }
             R.id.menu_sign_out -> {
                 FirebaseAuth.getInstance().signOut()
